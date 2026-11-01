@@ -737,7 +737,13 @@ function mapPlaceholder(msg){
 function initMap(){
   if (!CONFIG.naverMapKey){ mapPlaceholder("터치하면 네이버 지도로 열려요"); return; }
   window.navermap_authFailure = () => mapPlaceholder("지도를 불러오지 못했어요 · 터치하면 네이버 지도로 열려요");
-  window.__initNaverMap = () => {
+  const fail = () => mapPlaceholder("지도를 불러오지 못했어요 · 터치하면 네이버 지도로 열려요");
+  let drawn = false;
+  const draw = () => {
+    if (drawn) return;
+    const naver = window.naver;
+    if (!naver || !naver.maps || !naver.maps.Map) return false;
+    drawn = true;
     const pos = new naver.maps.LatLng(CONFIG.lat, CONFIG.lng);
     const map = new naver.maps.Map("map", {
       center: pos, zoom: 17,
@@ -749,10 +755,20 @@ function initMap(){
       position: pos, map,
       icon: { content: `<div class="pin"><span class="bubble">${CONFIG.venue}</span><span class="dot"></span></div>`, anchor: new naver.maps.Point(0, 0) },
     });
+    return true;
+  };
+  // 스크립트가 다 준비될 때까지 기다렸다가 그리기 (최대 10초)
+  const waitAndDraw = () => {
+    const t0 = Date.now();
+    const iv = setInterval(() => {
+      try { if (draw() !== false) clearInterval(iv); } catch (e) { clearInterval(iv); console.error(e); fail(); }
+      if (!drawn && Date.now() - t0 > 10000){ clearInterval(iv); fail(); }
+    }, 100);
   };
   const s = document.createElement("script");
-  s.src = `https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=${encodeURIComponent(CONFIG.naverMapKey)}&callback=__initNaverMap`;
-  s.onerror = () => mapPlaceholder("지도를 불러오지 못했어요 · 터치하면 네이버 지도로 열려요");
+  s.src = `https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=${encodeURIComponent(CONFIG.naverMapKey)}`;
+  s.onload = waitAndDraw;
+  s.onerror = fail;
   document.head.appendChild(s);
 }
 
