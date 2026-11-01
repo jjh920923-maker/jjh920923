@@ -172,6 +172,9 @@
     transform:translateX(-50%) rotate(45deg)}
   .mpin .dot{position:absolute;left:63px;top:50px;width:14px;height:14px;border-radius:50%;background:var(--ball);
     border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.35)}
+  .map-home{position:absolute;left:10px;top:10px;z-index:200;height:30px;padding:0 11px;border-radius:999px;
+    border:1px solid var(--rule);background:rgba(255,255,255,.95);color:var(--accent);
+    font:500 12px "Noto Sans KR",sans-serif;box-shadow:0 1px 4px rgba(0,0,0,.15);cursor:pointer}
   .map-btns{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:20px}
   .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:44px;padding:0 14px;border-radius:10px;border:1px solid var(--rule);
     background:#fff;color:var(--ink);font:500 13px "Noto Sans KR",sans-serif;text-decoration:none;cursor:pointer}
@@ -757,7 +760,7 @@ function initMap(){
     const pos = new naver.maps.LatLng(CONFIG.lat, CONFIG.lng);
     const map = new naver.maps.Map("map", {
       center: pos, zoom: 17,
-      scrollWheel: false, draggable: !isMobile, pinchZoom: true, disableDoubleClickZoom: false,
+      scrollWheel: false, draggable: true, pinchZoom: true, disableDoubleClickZoom: false,
       zoomControl: true, zoomControlOptions: { position: naver.maps.Position.TOP_RIGHT, style: naver.maps.ZoomControlStyle.SMALL },
       logoControlOptions: { position: naver.maps.Position.BOTTOM_LEFT },
     });
@@ -767,6 +770,11 @@ function initMap(){
               size: new naver.maps.Size(140, 64), anchor: new naver.maps.Point(70, 57) },
       zIndex: 100,
     });
+    // 지도를 움직인 뒤 호텔 위치로 돌아오는 버튼
+    const home = document.createElement("button");
+    home.type = "button"; home.className = "map-home"; home.textContent = "호텔 위치로";
+    home.addEventListener("click", () => { map.morph(pos, 17); });
+    $("#map").appendChild(home);
     return true;
   };
   // 스크립트가 다 준비될 때까지 기다렸다가 그리기 (최대 10초)
