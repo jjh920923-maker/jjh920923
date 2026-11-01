@@ -162,6 +162,15 @@
     transform:translateX(-50%) rotate(45deg);border-radius:1px}
   .pin .dot{position:absolute;left:-7px;top:-7px;width:14px;height:14px;border-radius:50%;background:var(--ball);
     border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.3)}
+  /* 실제 지도 위 마커 (크기 고정: 140×64, 점 중심이 좌표) */
+  .mpin{position:relative;width:140px;height:64px;pointer-events:none}
+  .mpin .bubble{position:absolute;left:50%;top:0;transform:translateX(-50%);white-space:nowrap;
+    background:var(--accent);color:#fff;font:700 13px/1 "Noto Sans KR",sans-serif;padding:9px 13px;border-radius:999px;
+    box-shadow:0 4px 12px rgba(0,0,0,.25)}
+  .mpin .bubble::after{content:"";position:absolute;left:50%;bottom:-5px;width:10px;height:10px;background:var(--accent);
+    transform:translateX(-50%) rotate(45deg)}
+  .mpin .dot{position:absolute;left:63px;top:50px;width:14px;height:14px;border-radius:50%;background:var(--ball);
+    border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.35)}
   .map-btns{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:20px}
   .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:44px;padding:0 14px;border-radius:10px;border:1px solid var(--rule);
     background:#fff;color:var(--ink);font:500 13px "Noto Sans KR",sans-serif;text-decoration:none;cursor:pointer}
@@ -753,7 +762,9 @@ function initMap(){
     });
     new naver.maps.Marker({
       position: pos, map,
-      icon: { content: `<div class="pin"><span class="bubble">${CONFIG.venue}</span><span class="dot"></span></div>`, anchor: new naver.maps.Point(0, 0) },
+      icon: { content: `<div class="mpin"><span class="bubble">${CONFIG.venue}</span><span class="dot"></span></div>`,
+              size: new naver.maps.Size(140, 64), anchor: new naver.maps.Point(70, 57) },
+      zIndex: 100,
     });
     return true;
   };
