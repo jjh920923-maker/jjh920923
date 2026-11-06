@@ -534,7 +534,7 @@ function buildIntro(){
   const b = document.createElement("div"); b.className = "player bride"; b.innerHTML = BRIDE_SVG;
   const g = document.createElement("div"); g.className = "player groom"; g.innerHTML = GROOM_SVG;
   halfTop.appendChild(b); halfBot.appendChild(g);
-  players.bride = { el: b, u: .5, v: -.015, half: "top", reach: .085 };
+  players.bride = { el: b, u: .5, v: -.015, half: "top", reach: .085, scale: .88 };
   players.groom = { el: g, u: .5, v: 1.03,  half: "bot", reach: .085 };
   layout();
 }
@@ -542,7 +542,7 @@ function buildIntro(){
 function layout(){
   const vw = innerWidth, vh = innerHeight;
   const ratio = COURT_H / COURT_W;
-  let cw = Math.min(vw * .74, vh * .80 / ratio);
+  let cw = Math.min(vw * .74, vh * .72 / ratio);   // 위·아래 캐릭터 자리 확보
   const ch = cw * ratio;
   L = { vw, vh, cw, ch, cx: (vw - cw)/2, ct: vh/2 - ch/2, net: vh/2 };
   L.ph = cw * .34;                       // 캐릭터 높이
@@ -564,8 +564,15 @@ const Y = v => L.ct + v * L.ch;
 
 function placePlayer(p){
   const offY = p.half === "bot" ? L.vh/2 : 0;
-  Object.assign(p.el.style, { width: L.pw+"px", height: L.ph+"px" });
-  p.el.style.transform = `translate(${X(p.u) - L.pw/2}px, ${Y(p.v) - offY - L.ph}px)`;
+  let ph = L.ph * (p.scale || 1), pw;
+  if (p.half === "top"){
+    // 머리(그림 맨 위 = viewBox y≈16)가 화면 위로 잘리지 않게 최소 10px 여백 확보
+    const room = Y(p.v) - 10;
+    ph = Math.min(ph, room * 140 / (140 - 16));
+  }
+  pw = ph * 100/140;
+  Object.assign(p.el.style, { width: pw+"px", height: ph+"px" });
+  p.el.style.transform = `translate(${X(p.u) - pw/2}px, ${Y(p.v) - offY - ph}px)`;
 }
 // 라켓 면(타점) 위치
 const contact = p => ({ u: p.u + p.reach, v: p.v + (p.half === "top" ? .015 : -.11) });
