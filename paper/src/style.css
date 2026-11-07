@@ -1,0 +1,25 @@
+/* 종이 청첩장 · 식권 공통 스타일
+   색을 바꾸려면 --accent 한 줄만 고치면 됩니다.
+   후보: #1F3A2E(그린) #24324A(네이비) #5A2A2E(버건디) #6B5A3A(브라운) */
+@import url("https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap");
+
+:root {
+  --accent: #1F3A2E;
+  --paper: #F8F5EE;
+  --ink: #2B2A27;
+  --muted: #6E6A62;
+  --rule: #E6E0D3;
+  --ko: "Gowun Batang", "Noto Serif CJK KR", serif;
+  --en: "Cormorant Garamond", "FreeSerif", serif;
+}
+
+html, body { margin: 0; padding: 0; background: var(--paper); }
+p { margin: 0; }
+.ko { font-family: var(--ko); color: var(--ink); }
+.en { font-family: var(--en); }
+.label { font-family: var(--en); font-size: 13px; letter-spacing: 0.42em; color: var(--accent); }
+.muted { color: var(--muted); }
+.accent { color: var(--accent); }
+svg .line { fill: none; stroke: var(--accent); }
+svg .fill { fill: var(--accent); }
+svg .paper { fill: var(--paper); }

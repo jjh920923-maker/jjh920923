@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>청첩장 안쪽면 (인사말 | 예식 안내)</title>
+<!-- 크기: 펼친 면 250×175mm. 944×661px = 96dpi 기준, 가운데가 접는 선 -->
+<link rel="stylesheet" href="style.css">
+<style>
+  .cal { width:280px; display:grid; grid-template-columns:repeat(7, minmax(0,1fr)); row-gap:6px; font-family:var(--en); font-size:15px; text-align:center; color:var(--ink); }
+  .cal .wd { font-size:12px; letter-spacing:0.1em; color:var(--muted); padding-bottom:6px; }
+  .cal .day { height:32px; display:flex; align-items:center; justify-content:center; }
+  .cal .wed { position:relative; }
+  .cal .wed svg { position:absolute; left:50%; top:0; transform:translateX(-50%); }
+  .cal .wed span { position:relative; font-weight:500; color:var(--accent); }
+</style>
+</head>
+<body>
+<main class="ko" style="width:944px;height:661px;display:flex;background:var(--paper)">
+
+  <!-- 왼쪽: 인사말 · 혼주 -->
+  <section style="width:472px;height:661px;box-sizing:border-box;padding:64px 56px;display:flex;flex-direction:column;align-items:center;justify-content:space-between">
+    <p class="label">INVITATION</p>
+    <p style="font-size:15px;line-height:2.1;text-align:center">
+      서로의 공을 받아주며<br>
+      함께 랠리를 이어 온 두 사람이<br>
+      이제 한 코트에 서서<br>
+      평생의 파트너가 되려 합니다.<br>
+      <br>
+      귀한 걸음 하시어<br>
+      저희의 첫 게임을 축복해 주세요.
+    </p>
+    <div style="width:40px;height:1px;background:var(--accent)"></div>
+    <div style="display:flex;flex-direction:column;gap:12px;align-items:center;font-size:15px">
+      <p><span class="muted">정종철 · 나선연</span><span class="muted" style="font-size:13px;padding:0 8px">의 아들</span><b style="letter-spacing:0.08em">재환</b></p>
+      <p><span class="muted">김경진 · 김영민</span><span class="muted" style="font-size:13px;padding:0 8px">의 딸</span><b style="letter-spacing:0.08em">예솔</b></p>
+    </div>
+  </section>
+
+  <!-- 오른쪽: 달력 · 예식 안내 -->
+  <section style="width:472px;height:661px;box-sizing:border-box;padding:56px 56px 52px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;border-left:1px solid var(--rule)">
+    <p class="label">WEDDING DAY</p>
+    <div style="display:flex;flex-direction:column;gap:14px;align-items:center">
+      <p class="en accent" style="font-size:22px;font-style:italic">April 2027</p>
+      <div class="cal">
+        <div class="wd">SUN</div><div class="wd">MON</div><div class="wd">TUE</div><div class="wd">WED</div><div class="wd">THU</div><div class="wd">FRI</div><div class="wd">SAT</div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div class="day">1</div>
+        <div class="day">2</div>
+        <div class="day wed"><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><circle class="line" cx="16" cy="16" r="15" stroke-width="1.2"/><path class="line" d="M6 6 C 12 12, 12 20, 6 26" stroke-width="0.8" opacity="0.6"/><path class="line" d="M26 6 C 20 12, 20 20, 26 26" stroke-width="0.8" opacity="0.6"/></svg><span>3</span></div>
+        <div class="day">4</div>
+        <div class="day">5</div>
+        <div class="day">6</div>
+        <div class="day">7</div>
+        <div class="day">8</div>
+        <div class="day">9</div>
+        <div class="day">10</div>
+        <div class="day">11</div>
+        <div class="day">12</div>
+        <div class="day">13</div>
+        <div class="day">14</div>
+        <div class="day">15</div>
+        <div class="day">16</div>
+        <div class="day">17</div>
+        <div class="day">18</div>
+        <div class="day">19</div>
+        <div class="day">20</div>
+        <div class="day">21</div>
+        <div class="day">22</div>
+        <div class="day">23</div>
+        <div class="day">24</div>
+        <div class="day">25</div>
+        <div class="day">26</div>
+        <div class="day">27</div>
+        <div class="day">28</div>
+        <div class="day">29</div>
+        <div class="day">30</div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px;align-items:center;text-align:center">
+      <p style="font-size:16px;letter-spacing:0.04em">2027년 4월 3일 토요일 오후 1시 30분</p>
+      <p class="accent" style="font-size:18px;font-weight:700;letter-spacing:0.08em">호텔PJ 1층 뮤즈홀</p>
+      <p class="muted" style="font-size:13px">서울 중구 마른내로 71</p>
+      <div style="width:24px;height:1px;background:var(--rule);margin:4px 0"></div>
+      <p class="muted" style="font-size:12px;line-height:1.7">3·4호선 충무로역 8번 출구<br>2·5호선 을지로4가역 9번 출구<br>호텔PJ 주차장 하객 2시간 무료</p>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>
